@@ -1,0 +1,49 @@
+{
+  "skill_name": "motion-design-skill",
+  "evals": [
+    {
+      "id": 0,
+      "name": "react-toast-review",
+      "prompt": "I have this Toast component in my Next.js app and toasts feel slow and janky when several stack up at once. Can you review it?\n\n```tsx\nimport { motion } from \"framer-motion\";\nimport { useEffect, useState } from \"react\";\n\nexport function Toast({ message, onDismiss }: { message: string; onDismiss: () => void }) {\n  const [mounted, setMounted] = useState(false);\n\n  useEffect(() => {\n    setMounted(true);\n    const timer = setTimeout(onDismiss, 3000);\n    return () => clearTimeout(timer);\n  }, [onDismiss]);\n\n  return (\n    <motion.div\n      initial={{ scale: 0, opacity: 0 }}\n      animate={{ scale: 1, opacity: 1 }}\n      exit={{ scale: 0, opacity: 0 }}\n      transition={{ duration: 0.5, ease: \"easeIn\" }}\n      style={{ transition: \"all 500ms\", background: \"white\", padding: \"16px\", borderRadius: \"8px\" }}\n    >\n      {message}\n    </motion.div>\n  );\n}\n```\n\nFor context the rest of the app is React + Tailwind v4. What would you change?",
+      "expected_output": "A markdown table reviewing the code with at minimum: framer-motion → motion/react migration, scale(0) → scale(0.95), ease-in → ease-out (or custom curve), transition: all → specific properties, duration too long. Should mention transitions over keyframes for rapidly-stacking toasts.",
+      "files": [],
+      "assertions": [
+        { "name": "uses_review_table", "check": "Output contains a markdown table with Before, After, Why columns" },
+        { "name": "flags_framer_motion_import", "check": "Output mentions migrating from framer-motion to motion/react (or motion package)" },
+        { "name": "flags_scale_zero", "check": "Output flags initial/exit scale(0) and recommends scale(0.95) or similar non-zero starting scale" },
+        { "name": "flags_ease_in", "check": "Output flags ease: 'easeIn' as wrong for UI and recommends ease-out or a custom curve" },
+        { "name": "flags_transition_all", "check": "Output flags style.transition: 'all 500ms' and recommends specifying exact properties" },
+        { "name": "flags_long_duration", "check": "Output flags 500ms duration as too long for a toast and recommends 200-320ms range" },
+        { "name": "mentions_transitions_vs_keyframes", "check": "Output mentions that rapidly-stacking toasts benefit from CSS transitions over keyframes for interruptibility" }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "vue-drawer-build",
+      "prompt": "need a bottom sheet / drawer for my vue 3 app. should slide up from bottom on open, slide down on close, and let users swipe down to dismiss. using tailwind v4 and motion if i need it. what's the cleanest way to build this without going crazy with custom css?",
+      "expected_output": "A working Vue 3 + Tailwind v4 + motion-v drawer that uses theme easing tokens, swipe-to-dismiss with velocity threshold, prefers-reduced-motion handling, and momentum-based dismissal logic. Should NOT use framer-motion.",
+      "files": [],
+      "assertions": [
+        { "name": "uses_motion_v_not_framer", "check": "Output imports from 'motion-v' and not 'framer-motion'" },
+        { "name": "uses_tailwind_utilities", "check": "Output applies styles via Tailwind utility classes (transition-transform, duration-*, ease-*, translate-y-*) rather than hand-written CSS only" },
+        { "name": "swipe_to_dismiss_with_velocity", "check": "Swipe-to-dismiss logic considers velocity, not just distance threshold" },
+        { "name": "uses_translate_y_full", "check": "Drawer uses translate-y-full or translateY(100%) to hide off-bottom regardless of height" },
+        { "name": "mentions_reduced_motion", "check": "Output addresses prefers-reduced-motion (motion-reduce: utility, useReducedMotion composable, or equivalent)" },
+        { "name": "uses_custom_easing", "check": "Output uses a custom easing curve (ease-drawer / cubic-bezier 0.32 0.72 0 1) rather than just the default ease" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "command-palette-decision",
+      "prompt": "quick question — i'm building a cmd+k command palette like raycast/linear. should the open/close have an animation? thinking like a 250ms fade+scale would feel polished. wdyt?",
+      "expected_output": "A clear recommendation against animating the open/close, citing how often users open the palette (100+ times/day), and pointing out that Raycast itself has no animation precisely because of this.",
+      "files": [],
+      "assertions": [
+        { "name": "recommends_no_animation", "check": "Output clearly recommends NOT animating the open/close (or at most an extremely minimal one)" },
+        { "name": "cites_frequency_reasoning", "check": "Output cites the frequency-of-use reasoning — keyboard-triggered, 100+ times/day, repeated daily use" },
+        { "name": "mentions_raycast_or_keyboard_actions", "check": "Output references Raycast specifically OR the broader 'never animate keyboard-initiated actions' principle" },
+        { "name": "no_blanket_yes", "check": "Output does NOT simply agree that 250ms fade+scale would be polished without challenging the premise" }
+      ]
+    }
+  ]
+}
