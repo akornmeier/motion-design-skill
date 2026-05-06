@@ -66,7 +66,7 @@ The `hover:` gating is important: it means `hover:scale-105` will not falsely tr
 
 Radix exposes `data-[state=open]` and `data-[state=closed]` plus `--radix-popover-content-transform-origin`. Combine with `starting:` for first-paint:
 
-```html
+```jsx
 <div
   class="
     origin-[var(--radix-popover-content-transform-origin)]
@@ -83,7 +83,7 @@ Modals do **not** get a trigger-relative origin — they stay `origin-center`.
 
 The first tooltip should delay and animate. Once one is open, hovering over adjacent triggers should open instantly. Drive this from a `data-instant` attribute on a wrapping provider:
 
-```html
+```jsx
 <div
   class="
     origin-[var(--radix-tooltip-content-transform-origin)]
@@ -96,7 +96,7 @@ The first tooltip should delay and animate. Once one is open, hovering over adja
 
 ### Toast enter (with `@starting-style`)
 
-```html
+```jsx
 <div
   class="
     translate-y-0 opacity-100
@@ -108,7 +108,7 @@ The first tooltip should delay and animate. Once one is open, hovering over adja
 
 ### Drawer slide-up
 
-```html
+```jsx
 <div
   class="
     translate-y-0
@@ -145,8 +145,8 @@ Keep stagger delays short (30–80ms between items). Stagger is decorative — n
 
 ### Hold-to-delete
 
-```html
-<button class="relative active:scale-[0.97] transition-transform duration-press ease-out-quint">
+```jsx
+<button class="group relative active:scale-[0.97] transition-transform duration-press ease-out-quint">
   <span class="
     absolute inset-0 bg-red-500
     [clip-path:inset(0_100%_0_0)]
@@ -162,7 +162,7 @@ Keep stagger delays short (30–80ms between items). Stagger is decorative — n
 
 Always provide a fallback that conveys the same state change without movement:
 
-```html
+```jsx
 <div class="
   transition-transform duration-pop ease-out-quint
   motion-safe:data-[state=closed]:translate-x-full

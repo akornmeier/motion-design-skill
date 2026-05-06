@@ -36,7 +36,7 @@ For loading states, **don't** swap the button content abruptly. Crossfade with a
 
 The default `transform-origin: center` is wrong. Popovers should scale from their trigger.
 
-```html
+```jsx
 <div class="
   origin-[var(--radix-popover-content-transform-origin)]
   transition duration-pop ease-out-quint
@@ -55,7 +55,7 @@ Tooltips should delay before the *first* one appears (prevents accidental activa
 
 Drive the difference from a `data-instant` flag set by the tooltip provider:
 
-```html
+```jsx
 <div class="
   origin-[var(--radix-tooltip-content-transform-origin)]
   transition duration-pop ease-out-quint
@@ -80,7 +80,7 @@ Modals and drawers are different beasts. Don't reuse the same animation.
 
 Modal:
 
-```html
+```jsx
 <div class="
   origin-center
   transition duration-pop ease-out-quint
@@ -91,7 +91,7 @@ Modal:
 
 Drawer:
 
-```html
+```jsx
 <div class="
   translate-y-0
   transition-transform duration-drawer ease-drawer
@@ -105,7 +105,7 @@ Drawers benefit from gesture-aware dismissal — see `references/gestures.md`.
 
 Stack from a corner, animate in from the same edge they exit toward. Sonner's enter/exit symmetry is what makes swipe-to-dismiss feel intuitive — the toast is *already* moving in the dismiss direction every time you see it appear.
 
-```html
+```jsx
 <div class="
   translate-y-0 opacity-100
   transition duration-drawer ease-drawer

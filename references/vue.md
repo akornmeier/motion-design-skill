@@ -27,7 +27,7 @@ import { Motion, AnimatePresence, useSpring, useReducedMotion, useMotionValue, u
 
 ```vue
 <script setup>
-import { Motion } from "motion-v"
+import { Motion, motion } from "motion-v"
 </script>
 
 <template>
